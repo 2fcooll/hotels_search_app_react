@@ -5,6 +5,20 @@ import Select from './components/select'
 import Table from './components/table'
 
 class App extends Component {
+  state = {
+    hotels: []
+  }
+
+  componentDidMount() {
+    fetch('./hotels.json', {
+      method: 'GET'
+    })
+    .then(res => res.json())
+    .then(res => {
+      this.setState({ hotels: res.hotels })
+    })
+  }
+
   render() {
     return (
       <div>
@@ -60,7 +74,7 @@ class App extends Component {
         </div>
         <Button title={'Применить фильтры'} />
         <div>
-          <Table dataSet={[]} />
+          <Table dataSet={this.state.hotels} />
         </div>
       </div>
     )
