@@ -9,14 +9,10 @@ class App extends Component {
     hotels: [],
     hotelCountry: '',
     hotelType: '',
-    hotelStarsNumber: '',
+    hotelStarsNumber: [],
     hotelRewiewsFrom: '',
     hotelPriceTo: '',
-    hotelOneStar: false,
-    hotelTwoStar: false,
-    hotelThreeStar: false,
-    hotelFourStar: false,
-    hotelFiveStar: false
+    hotelsFiltered: []
   }
 
   componentDidMount() {
@@ -25,7 +21,7 @@ class App extends Component {
     })
     .then(res => res.json())
     .then(res => {
-      this.setState({ hotels: res.hotels })
+      this.setState({ hotels: res.hotels, hotelsFiltered: res.hotels })
     })
   }
 
@@ -33,10 +29,60 @@ class App extends Component {
     this.setState({ [field]: value })
   }
 
+  handleCheckboxToggle = value => {
+    const hotelStarsNumber = JSON.parse(JSON.stringify(this.state.hotelStarsNumber))
+    const indexOfValue = hotelStarsNumber.indexOf(value)
+
+    if (~indexOfValue) {
+      hotelStarsNumber.splice(indexOfValue, 1)
+    } else {
+      hotelStarsNumber.push(value)
+    }
+
+    this.setState({ hotelStarsNumber })
+  }
+
+  handleFilterHotels = () => {
+    let hotels = JSON.parse(JSON.stringify(this.state.hotels))
+
+    if (this.state.hotelCountry) {
+      hotels = hotels.filter(e => e.country === this.state.hotelCountry)
+    }
+
+    if (this.state.hotelType) {
+      hotels = hotels.filter(e => ~this.state.hotelType.indexOf(e.type))
+    }
+
+    if (this.state.hotelStarsNumber.length > 0) {
+      hotels = hotels.filter(e => ~this.state.hotelStarsNumber.indexOf(e.stars))
+    }
+
+    if (this.state.hotelRewiewsFrom) {
+      hotels = hotels.filter(e => e.reviews_amount >= this.state.hotelRewiewsFrom)
+    }
+
+    if (this.state.hotelPriceTo) {
+      hotels = hotels.filter(e => e.min_price <= this.state.hotelPriceTo)
+    }
+
+    this.setState({ hotelsFiltered: hotels })
+  }
+
+  handleClearFilters = () => {
+    this.setState({
+      hotelCountry: '',
+      hotelType: '',
+      hotelStarsNumber: [],
+      hotelRewiewsFrom: '',
+      hotelPriceTo: '',
+      hotelsFiltered: this.state.hotels
+    })
+  }
+
   render() {
     return (
       <div>
-        <Button title={'Очистить фильтры'} />
+        <Button handler={() => this.handleClearFilters()} title={'Очистить фильтры'} />
         <div>
           <label>Страна</label>
           <Select
@@ -59,8 +105,7 @@ class App extends Component {
             <label>
               <input
                 type='checkbox'
-                checked={this.state.hotelOneStar}
-                onChange={e => this.handleChange('hotelOneStar', e.target.checked)}
+                onChange={() => this.handleCheckboxToggle(1)}
               />
               1 звезда
             </label>
@@ -69,8 +114,7 @@ class App extends Component {
             <label>
               <input
                 type='checkbox'
-                checked={this.state.hotelTwoStar}
-                onChange={e => this.handleChange('hotelTwoStar', e.target.checked)}
+                onChange={() => this.handleCheckboxToggle(2)}
                />
               2 звезда
             </label>
@@ -79,8 +123,7 @@ class App extends Component {
             <label>
               <input
                 type='checkbox'
-                checked={this.state.hotelThreeStar}
-                onChange={e => this.handleChange('hotelThreeStar', e.target.checked)}
+                onChange={() => this.handleCheckboxToggle(3)}
                />
               3 звезда
             </label>
@@ -89,8 +132,7 @@ class App extends Component {
             <label>
               <input
                 type='checkbox'
-                checked={this.state.hotelFourStar}
-                onChange={e => this.handleChange('hotelFourStar', e.target.checked)}
+                onChange={() => this.handleCheckboxToggle(4)}
                />
               4 звезда
             </label>
@@ -99,8 +141,7 @@ class App extends Component {
             <label>
               <input
                 type='checkbox'
-                checked={this.state.hotelFiveStar}
-                onChange={e => this.handleChange('hotelFiveStar', e.target.checked)}
+                onChange={() => this.handleCheckboxToggle(5)}
                />
               5 звезда
             </label>
@@ -124,9 +165,9 @@ class App extends Component {
             onChange={e => this.handleChange('hotelPriceTo', e.target.value)}
           />
         </div>
-        <Button title={'Применить фильтры'} />
+        <Button handler={() => this.handleFilterHotels()} title={'Применить фильтры'} />
         <div>
-          <Table dataSet={this.state.hotels} />
+          <Table dataSet={this.state.hotelsFiltered} />
         </div>
       </div>
     )

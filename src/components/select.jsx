@@ -7,6 +7,12 @@ class Select extends Component {
     valueOfSearch: ''
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.valueOfSelect !== this.state.valueOfSelect) {
+      this.props.getValue(this.state.valueOfSelect)
+    }
+  }
+
   handleChange = (field, value) => {
     this.setState({ [field]: value })
   }
