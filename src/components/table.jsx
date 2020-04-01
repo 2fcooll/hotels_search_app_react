@@ -20,27 +20,27 @@ class Table extends Component {
   render() {
     return (
       <div>
-        <table>
+        <table className='table'>
           {
             Array.isArray(this.props.dataSet) &&
-            this.props.dataSet.length > 0 && 
+            this.props.dataSet.length > 0 &&
             this.getItemsByPageNumber(this.props.dataSet).map(element => {
               return (
                 <tr>
-                  <td>{element.name}</td>
-                  <td>{element.description}</td>
-                  <td><button>Забронировать</button></td>
+                  <td className='table__td'>{element.name}</td>
+                  <td className='table__td'>{element.description}</td>
+                  <td className='table__td'><button>Забронировать</button></td>
                 </tr>
               )
             })
           }
         </table>
         <div>
-          <ul>
+          <ul className='paginationList'>
             {
               [...Array(Math.ceil(this.props.dataSet.length / this.state.itemsPerPage))].map((e, i) => {
                 return (
-                  <li onClick={() => this.handleChange('currentPage', i + 1)}>{i + 1}</li>
+                  <li className='paginationList__item' onClick={() => this.handleChange('currentPage', i + 1)}>{i + 1}</li>
                 )
               })
             }

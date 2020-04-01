@@ -36,3 +36,175 @@
     transform: rotate(360deg);
   }
 }
+
+* {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.button {
+  padding: 10px;
+  outline: none;
+  border: 0;
+  cursor: pointer;
+  background: #9370DB;
+  color: #fff;
+  box-shadow: 0 0 0 5px rgba(147,112,219, 0.2);
+  margin: 20px;
+  transition: 0.2s;
+}
+
+.button:hover {
+  box-shadow: none;
+  background: rgba(147,112,219, 0.8);
+}
+
+.selectPlaceholder {
+  margin: 20px;
+  width: 180px;
+  height: 20px;
+  border: 1px solid #cdcdcd;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  transition: 0.2s;
+  padding: 10px;
+}
+
+.selectPlaceholder:hover {
+  border: 1px solid #9370DB;
+}
+
+.dropDown {
+  width: 200px;
+  background: #fff;
+  box-shadow: 0 0 0 5px rgba(147,112,219, 0.2);
+  margin: 20px;
+  padding: 0;
+}
+
+.dropDown__item {
+  padding: 10px;
+  list-style-type: none;
+  border-top: 1px solid #cdcdcd;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.dropDown__item:nth-child(1) {
+  border-top: none;
+}
+
+.dropDown__item:hover {
+  background: #9370DB;
+  color: #fff;
+}
+
+.label {
+  margin: 0 20px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 20px;
+}
+
+.checkboxLabel:hover {
+  opacity: 0.5;
+}
+
+input[type='checkbox'] {
+  outline: none;
+}
+
+input[type='checkbox']::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #cdcdcd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+input[type='checkbox']:checked::before {
+  content: '\2713';
+  border: 1px solid #9370DB;
+  color: #9370DB;
+}
+
+.flexContainer {
+  display: flex;
+}
+
+.inputTypeText {
+  border: 1px solid #cdcdcd;
+  margin: 20px;
+  outline: none;
+  height: 30px;
+  padding: 5px;
+  transition: 0.2s;
+}
+
+.inputTypeText:hover {
+  border: 1px solid #9370DB;
+}
+
+.inputTypeText:focus {
+  border: 1px solid #9370DB;
+}
+
+.inputTypeRange {
+  display: block;
+  -webkit-appearance: progress-bar;
+  -moz-appearance: progress-bar;
+  appearance: progress-bar;
+  margin: 20px;
+}
+
+.table {
+  margin-top: 20px;
+  border: 1px solid #cdcdcd;
+  padding: 20px;
+}
+
+.table__td {
+  border: 1px solid #cdcdcd;
+  padding: 20px;
+}
+
+table, td, th, tr {
+  border-collapse: collapse;
+}
+
+.paginationList {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.paginationList__item {
+  padding: 5px 10px;
+  list-style-type: none;
+  border: 1px solid #cdcdcd;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.paginationList__item:hover {
+  background: #9370DB;
+  color: #fff;
+  border: 1px solid #9370DB;
+}
+
+.paginationList__item:nth-child(n+2) {
+  border-left: none;
+}

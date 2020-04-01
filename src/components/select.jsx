@@ -37,19 +37,19 @@ class Select extends Component {
   render() {
     return (
       <div>
-        <div onClick={() => this.handleToggle('isOpen')}>
+        <div className='selectPlaceholder' onClick={() => this.handleToggle('isOpen')}>
           {Array.isArray(this.state.valueOfSelect) ? this.state.valueOfSelect.join(',') : this.state.valueOfSelect}
           <span>&#x25bc;</span>
         </div>
         {
           this.state.isOpen
             ? (
-              <ul>
+              <ul className='dropDown'>
                 {
                   this.props.disabledSearch
                     ? null
                     : (
-                        <li>
+                        <li className='dropDown__item'>
                           <input value={this.state.valueOfSearch} onChange={e => this.handleChange('valueOfSearch', e.target.value)} />
                         </li>
                       )
@@ -60,7 +60,7 @@ class Select extends Component {
                     .filter(option => new RegExp(this.state.valueOfSearch, 'gi').test(option))
                     .map(option => {
                       return (
-                        <li onClick={() => this.props.multiple ? this.handleMultipleSelect(option) : this.handleChange('valueOfSelect', option)}>
+                        <li className='dropDown__item' onClick={() => this.props.multiple ? this.handleMultipleSelect(option) : this.handleChange('valueOfSelect', option)}>
                           {option}
                           {
                             this.props.multiple && ~this.state.valueOfSelect.indexOf(option)

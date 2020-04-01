@@ -81,17 +81,18 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className='flexContainer'>
+        <div>
         <Button handler={() => this.handleClearFilters()} title={'Очистить фильтры'} />
         <div>
-          <label>Страна</label>
+          <label className='label'>Страна</label>
           <Select
             getValue={value => this.handleChange('hotelCountry', value)}
-            options={['Амстердам', 'Вена', 'Прага']}
+            options={['Греция', 'Вена', 'Прага']}
           />
         </div>
         <div>
-          <label>Тип</label>
+          <label className='label'>Тип</label>
           <Select
             getValue={value => this.handleChange('hotelType', value)}
             options={['Отель', 'Апартаменты']}
@@ -100,9 +101,9 @@ class App extends Component {
           />
         </div>
         <div>
-          <label>Звёзды</label>
+          <label className='label'>Звёзды</label>
           <div>
-            <label>
+            <label className='checkboxLabel'>
               <input
                 type='checkbox'
                 onChange={() => this.handleCheckboxToggle(1)}
@@ -111,61 +112,65 @@ class App extends Component {
             </label>
           </div>
           <div>
-            <label>
+            <label className='checkboxLabel'>
               <input
                 type='checkbox'
                 onChange={() => this.handleCheckboxToggle(2)}
                />
-              2 звезда
+               2 звезда
             </label>
           </div>
           <div>
-            <label>
+            <label className='checkboxLabel'>
               <input
                 type='checkbox'
                 onChange={() => this.handleCheckboxToggle(3)}
                />
-              3 звезда
+               3 звезда
             </label>
           </div>
           <div>
-            <label>
+            <label className='checkboxLabel'>
               <input
                 type='checkbox'
                 onChange={() => this.handleCheckboxToggle(4)}
                />
-              4 звезда
+               4 звезда
             </label>
           </div>
           <div>
-            <label>
+            <label className='checkboxLabel'>
               <input
                 type='checkbox'
                 onChange={() => this.handleCheckboxToggle(5)}
                />
-              5 звезда
+               5 звезда
             </label>
           </div>
         </div>
         <div>
-          <label>Количество отзывов от</label>
+          <label className='label'>Количество отзывов от</label>
           <input
             type='text'
+            className='inputTypeText'
             value={this.state.hotelRewiewsFrom}
             onChange={e => this.handleChange('hotelRewiewsFrom', e.target.value)}
           />
         </div>
         <div>
-          <label>Цена до</label>
+          <label className='label'>Цена до</label>
           <input
+            className='inputTypeRange'
             type='range'
             min='0'
             max='100500'
             value={this.state.hotelPriceTo}
             onChange={e => this.handleChange('hotelPriceTo', e.target.value)}
           />
+          <label className='label'>{this.state.hotelPriceTo}</label>
         </div>
         <Button handler={() => this.handleFilterHotels()} title={'Применить фильтры'} />
+        </div>
         <div>
           <Table dataSet={this.state.hotelsFiltered} />
         </div>
